@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% block content %}
+<body>
+    {% for message in get_flashed_messages() %}
+    <div class="flashMessages">
+        <div class="alert alert-primary alert-dismissible fade show" role="alert">
+            <strong> {{ message }} </strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    </div>
+    {% endfor %}
+    
+
+    <div class="container mt-5">
+        <div class="jumbotron text-center">
+            <img src="{{ url_for('static',filename='css/doc.png') }}" alt="" style="width: 10%;">
+            <h1 class="display-4">PDF Summarizer</h1>
+        </div>
+        
+        <div class="Myform card p-4 shadow-sm">
+            <form action="/" id="formid" method="post" enctype="multipart/form-data" onsubmit="showLoading()">
+                <div class="mb-3">
+                    <label for="file" class="form-label">Choose a PDF file:</label>
+                    <input type="file" id="file" name="file" accept="application/pdf" class="form-control">
+                </div>
+
+                <div class="mb-3">
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          Summarization Choice
+                        </button>
+                        <ul class="dropdown-menu">
+                          <li><a class="dropdown-item" id="whole-document" href="#">whole document</a></li>
+                          <li><hr class="dropdown-divider"></li>
+                          <li><a class="dropdown-item" id="specific-range" href="#">specific range</a></li>
+                        </ul>
+                      </div>
+                </div>
+
+                <input type="hidden" id="selection" name="selection" value="">
+                
+                <div id="page-range-fields" style="display: none;">
+                    <div class="mb-3">
+                        <label for="start_page" class="form-label">Start Page:</label>
+                        <input type="number" id="start_page" name="start_page" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label for="end_page" class="form-label">End Page:</label>
+                        <input type="number" id="end_page" name="end_page" class="form-control">
+                    </div>
+                </div>
+                <div class="text-center">
+                    <input class="btn btn-primary summarize_button" type="submit" value="Summarize">
+                </div> 
+            </form>
+            <!-- <div id="loading" style="display: none;" class="text-center mt-3">
+                <img src="{{ url_for('static', filename='css/loading.gif') }}" alt="Loading..." style="width: 50px;">
+                <p>Processing...</p>
+            </div> -->
+        </div>
+        
+        <div class="summary mt-4 p-4 bg-light border rounded shadow-sm">
+            {% if summary %}
+                <h2 class="text-center">Summary</h2>
+                <div>{{ summary|safe }}</div>
+            {% endif %}
+        </div>
+    </div>
+    <script src="{{ url_for('static',filename='js/pagefield.js') }}"></script>
+    <script src="{{ url_for('static',filename='js/app.js') }}"></script>
+</body>
+{% endblock %}
