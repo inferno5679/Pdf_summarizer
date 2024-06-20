@@ -195,7 +195,7 @@ def chat_bot(content,input_prompt):
 
     return completion.choices[0].message.content
 
-path = r"D:\Nuvama Report_Family - 3320.pdf"
-content = initial_summary(path,7,20)
-input_prompt = "what is the IRR for a certain instrument"
-print(chat_bot(content=content,input_prompt=input_prompt))
+# path = r"D:\Nuvama Report_Family - 3320.pdf"
+# content = initial_summary(path,7,20)
+# input_prompt = "what is the IRR for a certain instrument"
+# print(chat_bot(content=content,input_prompt=input_prompt))
